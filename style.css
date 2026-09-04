@@ -2,40 +2,208 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    scroll-behavior:smooth;
 }
 
-main{
-    max-width: 100vw;
-    border: 2px solid blue;
-    display: flex;
-    justify-content: center;
-    background-color: #121212;
+:root {
+  --cor-preta: #121212;
+  --cor-off-white: #fff3ef;
+  --cor-cinza: #b4aaa3;
+  --cor-destaque: #8fbdb8;
+  --fonte: 'Poppins', sans-serif;
+}
+
+
+body {
+  font-family: var(--fonte);
+  color: var(--cor-preta);
 }
 
 #section-1{
-    max-width: 1140px;
-    border: 2px solid red;
-    
-    color: white;
+  background-color: var(--cor-preta);
+  padding: 70px 20px;
 }
 
 
 img{
+    display: block;
+    max-width: 100%;
+}
+
+.container{
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.grid-destaque{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+    "hero hero hero hero"
+    "texto foto1 foto2 foto3";
+    gap: 24px;
+}
+
+.imagem-hero {
+  grid-area: hero;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+
+.bloco-texto{
+  grid-area: texto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.bloco-texto p{
+    color: var(--cor-off-white);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.botao-saiba-mais {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cor-cinza);
+  color: var(--cor-preta);
+  font-family: var(--fonte);
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.botao-saiba-mais:hover {
+  background-color: var(--cor-destaque);
+  
+}
+
+.foto-1 { grid-area: foto1; }
+.foto-2 { grid-area: foto2; }
+.foto-3 { grid-area: foto3; }
+
+.foto-galeria {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: 0.3s ease;
+}
+
+.foto-galeria:hover {
+  transform: scale(1.03);
+  filter: brightness(1.08);
+}
+
+.section-2 {
+  background-color: var(--cor-off-white);
+  padding: 60px 40px;
+  min-height: 100vh;
+}
+
+.grid-galeria {
+  display: grid;
+  /* trava em 5 colunas fixas no desktop, como pede o enunciado */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: calc(100vh - 120px);
+  grid-auto-rows: minmax(0, 1fr);
+  grid-auto-flow: dense;
+  gap: 20px;
+}
+
+.grid-galeria img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.grid-galeria img:hover {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+.foto-vertical {
+  grid-row: span 2;
+}
+
+
+@media (max-width: 1024px) {
+  .grid-destaque {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "hero hero"
+      "texto texto"
+      "foto1 foto2"
+      "foto3 foto3";
+  }
+
+  .imagem-hero {
+    height: 320px;
+  }
+
+  .foto-galeria {
+    height: 200px;
+  }
+
+  .grid-galeria {
+    
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+  }
+}
+
+
+@media (max-width: 600px) {
+  #section-1 {
+    padding: 40px 16px;
+  }
+
+  .grid-destaque {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "hero hero hero"
+      "texto texto texto"
+      "foto1 foto2 foto3";
+    gap: 12px;
+  }
+
+  .imagem-hero {
+    height: 220px;
+  }
+
+  .foto-galeria {
     height: 100px;
-    width: 100px;
-}
+  }
 
-a{
-    text-decoration: none;
-    color: white;
-}
+  .section-2 {
+    padding: 40px 16px;
+  }
 
-#texto-banner{
-    border: 1px solid yellow;
-    height: 100px;
-    max-width: 200px;
-}
+  .grid-galeria {
+    grid-template-columns: repeat(2, 1fr);
+    /*Uma forma de calcular para que a seção 2 tenha a mesma altura da 1*/
+    min-height: calc(100vh - 80px);
+    grid-auto-rows: minmax(0, 1fr);
+    gap: 12px;
+  }
 
-div p{
-    font-size: 10px;
+  /* esconde as 2 últimas fotos no mobile porque o design é diferente da versão desk*/
+  .grid-galeria img:nth-child(7),
+  .grid-galeria img:nth-child(8) {
+    display: none;
+  }
 }
